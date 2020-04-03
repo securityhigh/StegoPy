@@ -70,10 +70,10 @@ def main():
             decrypt(DATA["image"], key)
 
         except IndexError:
-            print(Style.BRIGHT + Fore.YELLOW + "    Invalid key")
+            print(Style.BRIGHT + Fore.YELLOW + "     Invalid key")
 
         except ValueError:
-            print(Style.BRIGHT + Fore.YELLOW + "    Invalid key")
+            print(Style.BRIGHT + Fore.YELLOW + "     Invalid key")
 
     print('')
 
@@ -81,7 +81,6 @@ def main():
 def encrypt(path_to_image, text, key, balance):
     """
     Encrypt in image
-    :param expansion: png|jpg
     :param balance: 1 to 4
     :param path_to_image: path
     :param text: text from data file
@@ -151,12 +150,11 @@ def decrypt(path_to_image, key):
 
     img["image"] = Image.open(path_to_image)
     img["width"] = img["image"].size[0]
+    img["height"] = img["image"].size[1]
     img["pix"] = img["image"].load()
 
     coord["x"] = 0
     coord["y"] = 0
-    width = count % img["width"]
-    height = count // img["width"]
     code = ''
 
     i = 0
@@ -172,12 +170,12 @@ def decrypt(path_to_image, key):
         elif balance == 2:
             code += pixel[-2] + pixel[-1]
 
-        elif balance == 1:
+        else:
             code += pixel[-1]
 
-        if coord["x"] < (width - 1):
+        if coord["x"] < (img["width"] - 1):
             coord["x"] += 1
-        elif coord["y"] < (height - 1):
+        else:
             coord["y"] += 1
             coord["x"] = 0
 
