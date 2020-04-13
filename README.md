@@ -1,4 +1,5 @@
 # StegoPy
+## Русский
 **Статья со скриншотами на OverNull - https://onull.nl/stegopy**
 
 ## English
