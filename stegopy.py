@@ -78,6 +78,39 @@ def main():
     print('')
 
 
+def find_max_index(array):
+    """
+    Find max number and return its index
+    :param array: input array
+    :return: max element index
+    """
+    max_num = array[0]
+    index = 0
+    for i in range(len(array)):
+        if array[i] > max_num:
+            max_num = array[i]
+            index = i
+    return index
+
+
+def balance_channel(colors, pix):
+    """
+    Find an optimal channel to write data
+    :param colors: red, green and blue channels
+    :param pix: data to write
+    :return: modified colors array
+    """
+    max_color = find_max_index(colors)
+    colors[max_color] = int(last_replace(bin(colors[max_color]), pix), 2)
+    while True:
+        max_sec = find_max_index(colors)
+        if max_sec != max_color:
+            colors[max_sec] = colors[max_color] - 1
+        else:
+            break
+    return colors
+
+
 def encrypt(path_to_image, text, key, balance):
     """
     Encrypt in image
@@ -107,12 +140,11 @@ def encrypt(path_to_image, text, key, balance):
     count = 0
 
     for i in list_two:
-        blue = last_replace(bin(img["pix"][coord["x"], coord["y"]][2]), i)
+        red, green, blue = img["pix"][coord["x"], coord["y"]]
 
-        img["draw"].point((coord["x"], coord["y"]),
-                          (img["pix"][coord["x"], coord["y"]][0],
-                           img["pix"][coord["x"], coord["y"]][1],
-                           int(blue, 2)))
+        (red, green, blue) = balance_channel([red, green, blue], i)
+
+        img["draw"].point((coord["x"], coord["y"]), (red, green, blue))
 
         if coord["x"] < (size["width"] - 1):
             coord["x"] += 1
@@ -159,7 +191,9 @@ def decrypt(path_to_image, key):
 
     i = 0
     while i < count:
-        pixel = str(bin(img["pix"][coord["x"], coord["y"]][2]))
+        pixels = img["pix"][coord["x"], coord["y"]]
+
+        pixel = str(bin(max(pixels)))
 
         if balance == 4:
             code += pixel[-4] + pixel[-3] + pixel[-2] + pixel[-1]
@@ -242,19 +276,12 @@ def split_count(text, count):
 
 def last_replace(in_bin, bins):
     """
-
+    Replace string with substring, starting from the end
     :param in_bin: 10010111
     :param bins: 01
     :return: 10010101
     """
-    result = list(in_bin)
-    bins = bins[::-1]
-
-    for i, item in enumerate(bins):
-        factor = i - (1 + i * 2)
-        result[factor] = item
-
-    return ''.join(str(x) for x in result)
+    return str(in_bin)[:-len(bins)] + bins
 
 
 def text_to_binary(event):
