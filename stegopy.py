@@ -86,9 +86,9 @@ def find_max_index(array):
     """
     max_num = array[0]
     index = 0
-    for i in range(len(array)):
-        if array[i] > max_num:
-            max_num = array[i]
+    for i, val in enumerate(array):
+        if val > max_num:
+            max_num = val
             index = i
     return index
 
