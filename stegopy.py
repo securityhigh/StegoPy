@@ -274,14 +274,14 @@ def split_count(text, count):
     return result
 
 
-def last_replace(in_bin, bins):
+def last_replace(main_string, last_symbols):
     """
     Replace string with substring, starting from the end
-    :param in_bin: 10010111
-    :param bins: 01
-    :return: 10010101
+    :param main_string: пиздец
+    :param last_symbols: бля
+    :return: пизбля
     """
-    return str(in_bin)[:-len(bins)] + bins
+    return str(main_string)[:-len(last_symbols)] + last_symbols
 
 
 def text_to_binary(event):
