@@ -240,21 +240,14 @@ def split_count(text, count):
     return result
 
 
-def last_replace(in_bin, bins):
+def last_replace(main_string, last_symbols):
     """
 
-    :param in_bin: 10010111
-    :param bins: 01
-    :return: 10010101
+    :param main_string: пиздец
+    :param last_symbols: бля
+    :return: пизбля
     """
-    result = list(in_bin)
-    bins = bins[::-1]
-
-    for i, item in enumerate(bins):
-        factor = i - (1 + i * 2)
-        result[factor] = item
-
-    return ''.join(str(x) for x in result)
+    return main_string[:-len(last_symbols)] + last_symbols
 
 
 def text_to_binary(event):
