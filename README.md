@@ -7,7 +7,7 @@
 ###### Theory
 StegoPy - Steganography with Python3 LSB algorithm with some improvements.
 The cryptography algorithm can choose the balance itself.
-A blue channel of pixels is used for encoding. Pixels are used, from x|y = 0 and from left to right.
+The brightest channel of an each pixel is used for encoding. Pixels are used, from x|y = 0 and from left to right.
 
 **Balance** - the number of least significant bits of the pixel that are involved in the encoding. The maximum is 4, the minimum is 1. With increasing cryptographic strength and the number of pixels involved decreases. Therefore, I advise you to use 1. And if the text does not fit, but you still want to cram the large text into a small image, then you can use 2 or 3.
 
