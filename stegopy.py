@@ -31,17 +31,27 @@ def main():
             if not os.path.exists(DATA["data"]):
                 raise FileExistsError
 
+            if isset(sys.argv, 4):
+                value = int(sys.argv[4])
+
+                if value >= 1 and value <= 4:
+                    DATA["balance"] = value
+
+                else:
+                    raise ValueError
+
         if not os.path.exists(DATA["image"]):
             raise FileExistsError
 
     except IndexError:
-        print(Style.BRIGHT + Fore.WHITE + '     Encrypt: stegopy.py -e path_to_image path_to_data')
-        print("     Decrypt: stegopy.py -d path_to_image")
-        sys.exit()
+        using("Encrypt: stegopy.py -e [path_to_image*] [path_to_data*] [balance]")
+        using("Decrypt: stegopy.py -d [path_to_image]", True)
 
     except FileExistsError:
-        print(Style.BRIGHT + Fore.YELLOW + '     Image not found.')
-        sys.exit()
+        error("Image not found.", True)
+
+    except ValueError:
+        using("Balance should be from 1 to 4.", True)
 
     print(Style.RESET_ALL + Fore.CYAN)
     print("    ███████╗████████╗███████╗ ██████╗  ██████╗ ██████╗ ██╗   ██╗")
@@ -49,31 +59,41 @@ def main():
     print("    ███████╗   ██║   █████╗  ██║  ███╗██║   ██║██████╔╝ ╚████╔╝ ")
     print("    ╚════██║   ██║   ██╔══╝  ██║   ██║██║   ██║██╔═══╝   ╚██╔╝  ")
     print("    ███████║   ██║   ███████╗╚██████╔╝╚██████╔╝██║        ██║   ")
-    print("    ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝        ╚═╝   ")
-    print("")
+    print("    ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝        ╚═╝   " + Fore.YELLOW + Style.BRIGHT)
+    print("                         github.com/eBind/StegoPy v0.0.3beta")
 
     if DATA["action"] == '-e':
-        balance = int(input(Style.BRIGHT + Fore.RED + "     Balance (1 to 4) > "))
-        if balance < 1 or balance > 4:
-            balance = 2
+
+        if not isset(DATA, "balance"):
+
+            try:
+                DATA["balance"] = int(input(Style.BRIGHT + Fore.RED + "     Balance (1 to 4) > "))
+
+                if DATA["balance"] < 1 or DATA["balance"] > 4:
+                    raise ValueError
+
+            except ValueError:
+                error("Set to 2.")
+                DATA["balance"] = 2
 
         file = open(DATA["data"], 'r')
         text = file.read()
         file.close()
 
-        encrypt(DATA["image"], text.strip(), Fernet.generate_key().decode(), balance)
+        encrypt(DATA["image"], text.strip(), Fernet.generate_key().decode(), DATA["balance"])
 
     elif DATA["action"] == '-d':
+
         key = input(Style.BRIGHT + Fore.RED + "     Key: ")
 
         try:
             decrypt(DATA["image"], key)
 
         except IndexError:
-            print(Style.BRIGHT + Fore.YELLOW + "     Invalid key")
+            error("Invalid key.")
 
         except ValueError:
-            print(Style.BRIGHT + Fore.YELLOW + "     Invalid key")
+            error("Invalid key.")
 
     print('')
 
@@ -86,10 +106,12 @@ def find_max_index(array):
     """
     max_num = array[0]
     index = 0
+
     for i, val in enumerate(array):
         if val > max_num:
             max_num = val
             index = i
+
     return index
 
 
@@ -102,22 +124,24 @@ def balance_channel(colors, pix):
     """
     max_color = find_max_index(colors)
     colors[max_color] = int(last_replace(bin(colors[max_color]), pix), 2)
+
     while True:
         max_sec = find_max_index(colors)
         if max_sec != max_color:
             colors[max_sec] = colors[max_color] - 1
         else:
             break
+
     return colors
 
 
 def encrypt(path_to_image, text, key, balance):
     """
     Encrypt in image
-    :param balance: 1 to 4
     :param path_to_image: path
     :param text: text from data file
     :param key: generated key
+    :param balance: 1 to 4
     :return:
     """
     img = dict()
@@ -148,22 +172,25 @@ def encrypt(path_to_image, text, key, balance):
 
         if coord["x"] < (size["width"] - 1):
             coord["x"] += 1
+
         elif coord["y"] < (size["height"] - 1):
             coord["y"] += 1
             coord["x"] = 0
+
         else:
-            print(Style.BRIGHT + Fore.YELLOW + "     Message too long for this image")
-            sys.exit()
+            error("Message too long for this image.", True)
 
         count += 1
 
     img["image"].save("out.png", "PNG")
-    print(Style.BRIGHT + Fore.GREEN + "     Image saved in out.png")
 
     file = open("key.dat", "w")
     file.write(str(balance) + '$' + str(count) + '$' + key)
     file.close()
-    print(Style.BRIGHT + Fore.GREEN + "     Key saved in key.dat")
+
+    success(str(count) + " pixels takes")
+    success("Image saved in out.png")
+    success("Key saved in key.dat")
 
 
 def decrypt(path_to_image, key):
@@ -220,7 +247,8 @@ def decrypt(path_to_image, key):
     file = open("out.txt", "w")
     file.write(des_decrypt(''.join(outed), end_key))
     file.close()
-    print(Style.BRIGHT + Fore.GREEN + "     Data saved in out.txt")
+    
+    success("Data saved in out.txt")
 
 
 def des_encrypt(text, key):
@@ -299,6 +327,55 @@ def binary_to_text(event):
     :return: text
     """
     return [chr(int(str(elem), 2)) for elem in event]
+
+
+def isset(array, key):
+    """
+    Сheck for the existence of a key in an list/dict
+    :param array: dict or list
+    :param key: key in dict/list
+    :return: boolean
+    """
+    try:
+        if type(array) is list:
+            array[key]
+
+        elif type(array) is dict:
+            return key in array.keys()
+
+        return True
+    except:
+        return False
+
+
+def error(text, quit=False):
+    """
+    Print a customized error
+    :param text: error text
+    """
+    print(Style.BRIGHT + Fore.YELLOW + "     " + text + Style.RESET_ALL)
+
+    if quit:
+        sys.exit()
+
+
+def using(text, quit=False):
+    """
+    Print a customized using message
+    :param text: using message
+    """
+    print(Style.BRIGHT + Fore.WHITE + "     " + text + Style.RESET_ALL)
+
+    if quit:
+        sys.exit()
+
+
+def success(text):
+    """
+    Print a customized successful message
+    :param text: success message
+    """
+    print(Style.BRIGHT + Fore.GREEN + "     " + text + Style.RESET_ALL)
 
 
 if __name__ == "__main__":
