@@ -14,6 +14,8 @@ from cryptography.fernet import Fernet
 from colorama import Fore, Style
 
 DATA = dict()
+name = sys.argv[0].split('/')[-1]
+version = "v0.0.4beta"
 
 
 def main():
@@ -23,14 +25,36 @@ def main():
     """
     try:
         DATA["action"] = sys.argv[1]
+
+        # Program information
+        if DATA["action"] == '-i':
+            success("Main developer: github.com/eBind")
+            success("Helper: github.com/eNaix")
+            error("StegoPy " + version, True)
+        # Program information - END
+
         DATA["image"] = sys.argv[2]
+
+        # Check directory to Image
+        if DATA["image"][0] != '/':
+            DATA["image"] = os.getcwd() + '/' + DATA["image"]
+
+        if not os.path.exists(DATA["image"]):
+                raise FileExistsError
+        # Check directory to Image - END
 
         if DATA["action"] == '-e':
             DATA["data"] = sys.argv[3]
 
+            # Check directory to Data file
+            if DATA["data"][0] != '/':
+                DATA["data"] = os.getcwd() + '/' + DATA["data"]
+
             if not os.path.exists(DATA["data"]):
                 raise FileExistsError
+            # Check directory to Data file - END
 
+            # Validate balance
             if isset(sys.argv, 4):
                 value = int(sys.argv[4])
 
@@ -39,16 +63,15 @@ def main():
 
                 else:
                     raise ValueError
-
-        if not os.path.exists(DATA["image"]):
-            raise FileExistsError
+            # Validate balance - END
 
     except IndexError:
-        using("Encrypt: stegopy.py -e [path_to_image*] [path_to_data*] [balance]")
-        using("Decrypt: stegopy.py -d [path_to_image]", True)
+        using("Encrypt: {} -e [path_to_image*] [path_to_data*] [balance]".format(name))
+        using("Decrypt: {} -d [path_to_image*]".format(name))
+        using("Program information: {} -i".format(name), True)
 
     except FileExistsError:
-        error("Image not found.", True)
+        error("Image or data file not found.", True)
 
     except ValueError:
         using("Balance should be from 1 to 4.", True)
@@ -60,7 +83,7 @@ def main():
     print("    ╚════██║   ██║   ██╔══╝  ██║   ██║██║   ██║██╔═══╝   ╚██╔╝  ")
     print("    ███████║   ██║   ███████╗╚██████╔╝╚██████╔╝██║        ██║   ")
     print("    ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝        ╚═╝   " + Fore.YELLOW + Style.BRIGHT)
-    print("                         github.com/eBind/StegoPy v0.0.3beta")
+    print("                         github.com/eBind/StegoPy " + version)
 
     if DATA["action"] == '-e':
 

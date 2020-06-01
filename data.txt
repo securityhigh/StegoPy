@@ -1,3 +1,2 @@
-this is private message
-github.com/eBind
-github.com/eNaix
+my private text
+Hello from eBind

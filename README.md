@@ -1,8 +1,8 @@
 # StegoPy
-## Русский
+## Русская версия
 **Статья со скриншотами на OverNull - https://onull.nl/stegopy**
 
-## English
+## English version
 
 ###### Theory
 StegoPy - Steganography with Python3 LSB algorithm with some improvements.
@@ -15,34 +15,37 @@ The peculiarity of the balance system is that for a certain text, balance 3 can 
 
 When encoding text in an image, it is pre-encrypted with the DES algorithm, so no matter how you try, you cannot encode the same text with the same key.
 
-After encoding, the key will be saved in the ** key.dat ** file, the image with the text in the file ** out.png **
+After encoding, the key will be saved in the **key.dat** file, the image with the text in the file **out.png**
 The key consists of three parts, for example:
 **2$400$KJhkiGlGKkghk/FffdD=**
 
 Shared by the character '$'. First - 2 is the balance. The second - 400 is the number of pixels involved and at the end is the key to the DES cipher. Over time, pixel randomization will be added, which will make the algorithm even more stable, as well as change the structure of the key.
 
-
-###### Install
-Requirements:
+###### Linux installation
+Make sure **> which python3** gives a **/bin/bash/python3**
 ```
 > git clone https://github.com/eBind/StegoPy
 > cd StegoPy
-> pip3 install -r requirements.txt
+> sudo ./install.sh
 ```
 
-Started in Linux:
+Start in any folders:
 ```
-> ./stegopy.py [arguments]
+> stegopy [arguments]
 ```
 
-In Windows or Termux:
+###### Windows installation (not tested!):
+Download from https://github.com/eBind/StegoPy
+Unpack archive.
+Open cmd.exe (Win + R and write cmd.exe)
+
 ```
 > python3 stegopy.py [arguments]
 ```
 
 ###### Encoding
 ```
-> ./stegopy.py -e in.jpg data.txt
+> stegopy -e in.jpg data.txt
 ```
 
 _-e_ - action type, encoding
@@ -54,7 +57,7 @@ Out image _out.png_, key in _key.dat_
 
 ###### Deconding
 ```
-> ./stegopy.py -d out.png
+> stegopy -d out.png
 ```
 
 _-d_ - action type, decoding
