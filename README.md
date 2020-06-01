@@ -22,7 +22,7 @@ The key consists of three parts, for example:
 Shared by the character '$'. First - 2 is the balance. The second - 400 is the number of pixels involved and at the end is the key to the DES cipher. Over time, pixel randomization will be added, which will make the algorithm even more stable, as well as change the structure of the key.
 
 ###### Linux installation
-Make sure **> which python3** gives a **/bin/bash/python3**
+Make sure **> which python3** gives a **/usr/bin/python3**
 ```
 > git clone https://github.com/eBind/StegoPy
 > cd StegoPy
