@@ -65,3 +65,7 @@ _out.png_ - encoded image
 
 Enter a key.
 Decoded data saved in _out.txt_
+
+![alt tag](https://overnull.ru/attachments/1591100758229-png.104/ "first start")
+![alt tag](https://overnull.ru/attachments/1591100798717-png.105/ "encoding")
+![alt tag](https://overnull.ru/attachments/1591100859017-png.106/ "decoding")
