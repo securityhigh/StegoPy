@@ -1,6 +1,6 @@
 # StegoPy
 ## Русская версия
-**Статья со скриншотами на OverNull - https://onull.nl/stegopy**
+**Статья со скриншотами на OverNull - https://habr.com/ru/post/497420/**
 
 ## English version
 
