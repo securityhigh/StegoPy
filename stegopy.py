@@ -3,7 +3,7 @@
 
 """
 StegoPy Offical
-github.com/eBind/StegoPy
+github.com/secwayz/StegoPy
 """
 
 import sys
@@ -15,7 +15,7 @@ from colorama import Fore, Style
 
 DATA = dict()
 name = sys.argv[0].split('/')[-1]
-version = "v0.0.4beta"
+version = "v0.0.4release"
 
 
 def main():
@@ -28,7 +28,7 @@ def main():
 
         # Program information
         if DATA["action"] == '-i':
-            success("Main developer: github.com/eBind")
+            success("Main developer: github.com/secwayz")
             success("Helper: github.com/eNaix")
             error("StegoPy " + version, True)
         # Program information - END
