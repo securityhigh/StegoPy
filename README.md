@@ -24,7 +24,7 @@ Shared by the character '$'. First - 2 is the balance. The second - 400 is the n
 ###### Linux installation
 Make sure **> which python3** gives a **/usr/bin/python3**
 ```
-> git clone https://github.com/eBind/StegoPy
+> git clone https://github.com/secwayz/StegoPy
 > cd StegoPy
 > sudo ./install.sh
 ```
@@ -35,7 +35,7 @@ Start in any folders:
 ```
 
 ###### Windows installation (not tested!):
-Download from https://github.com/eBind/StegoPy
+Download from https://github.com/secwayz/StegoPy
 Unpack archive.
 Open cmd.exe (Win + R and write cmd.exe)
 
@@ -65,7 +65,3 @@ _out.png_ - encoded image
 
 Enter a key.
 Decoded data saved in _out.txt_
-
-![alt tag](https://overnull.ru/attachments/1591100758229-png.104/ "first start")
-![alt tag](https://overnull.ru/attachments/1591100798717-png.105/ "encoding")
-![alt tag](https://overnull.ru/attachments/1591100859017-png.106/ "decoding")
