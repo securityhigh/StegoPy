@@ -83,7 +83,7 @@ def main():
     print("    ╚════██║   ██║   ██╔══╝  ██║   ██║██║   ██║██╔═══╝   ╚██╔╝  ")
     print("    ███████║   ██║   ███████╗╚██████╔╝╚██████╔╝██║        ██║   ")
     print("    ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝        ╚═╝   " + Fore.YELLOW + Style.BRIGHT)
-    print("                         github.com/eBind/StegoPy " + version)
+    print("                         github.com/secwayz/StegoPy " + version)
 
     if DATA["action"] == '-e':
 
