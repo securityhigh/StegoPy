@@ -1,6 +1,6 @@
 # StegoPy
 ## Русская версия
-**Статья со скриншотами на Habrahabr - https://onull.nl/stegopy**
+**Статья со скриншотами на Habrahabr - https://habr.com/ru/post/497420/**
 
 ## English version
 
@@ -24,7 +24,7 @@ Shared by the character '$'. First - 2 is the balance. The second - 400 is the n
 ###### Linux installation
 Make sure **> which python3** gives a **/usr/bin/python3**
 ```
-> git clone https://github.com/secwayz/StegoPy
+> git clone https://github.com/securityhigh/StegoPy
 > cd StegoPy
 > sudo ./install.sh
 ```
@@ -35,7 +35,7 @@ Start in any folders:
 ```
 
 ###### Windows installation (not tested!):
-Download from https://github.com/secwayz/StegoPy
+Download from https://github.com/securityhigh/StegoPy
 Unpack archive.
 Open cmd.exe (Win + R and write cmd.exe)
 
