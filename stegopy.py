@@ -3,7 +3,7 @@
 
 """
 StegoPy Offical
-github.com/secwayz/StegoPy
+github.com/securityhigh/StegoPy
 """
 
 import sys
@@ -28,7 +28,7 @@ def main():
 
         # Program information
         if DATA["action"] == '-i':
-            success("Main developer: github.com/secwayz")
+            success("Main developer: github.com/securityhigh")
             success("Helper: github.com/eNaix")
             error("StegoPy " + version, True)
         # Program information - END
@@ -83,7 +83,7 @@ def main():
     print("    ╚════██║   ██║   ██╔══╝  ██║   ██║██║   ██║██╔═══╝   ╚██╔╝  ")
     print("    ███████║   ██║   ███████╗╚██████╔╝╚██████╔╝██║        ██║   ")
     print("    ╚══════╝   ╚═╝   ╚══════╝ ╚═════╝  ╚═════╝ ╚═╝        ╚═╝   " + Fore.YELLOW + Style.BRIGHT)
-    print("                         github.com/secwayz/StegoPy " + version)
+    print("                         github.com/securityhigh/StegoPy " + version)
 
     if DATA["action"] == '-e':
 
